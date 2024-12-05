@@ -74,8 +74,6 @@ export async function submitAttempt(quizId, userId) {
   thisQuiz.questions.forEach((question, index) => {
     const userAnswer = latestAtt.answers[index];
     const correctAnswer = question.content.answer;
-    // console.log("userAnswer", userAnswer);
-    // console.log("correctAnswer", correctAnswer);
 
     if (compareAnswers(question.type, userAnswer, correctAnswer)) {
       score += question.content.point || 1;
