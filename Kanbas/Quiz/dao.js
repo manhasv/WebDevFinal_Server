@@ -17,3 +17,9 @@ export function deleteQuiz(quizId) {
 export function updateQuiz(quizId, quizUpdates) {
   return quizModel.updateOne({ _id: quizId }, quizUpdates);
 }
+export function publishQuiz(quizId) {
+  return quizModel.updateOne({ _id: quizId }, { publish: true });
+}
+export function unpublishQuiz(quizId) {
+  return quizModel.updateOne({ _id: quizId }, { publish: false });
+}

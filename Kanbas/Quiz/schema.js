@@ -15,6 +15,7 @@ const quizzSchema = new mongoose.Schema(
     shuffleAnswers: Boolean,
     oneQuestionPerPage: Boolean,
     timeLimit: String,
+    publish:Boolean,
   },
   { collection: "quizzes" }
 );

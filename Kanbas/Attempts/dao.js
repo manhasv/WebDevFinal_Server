@@ -1,8 +1,5 @@
 import model from "./model.js";
 
-// import quizModel from "../Quiz/quizModel.js";
-// import model from "../Users/model.js"
-
 export async function startQuizAttempt(quizId, userId) {
   const existingAttempts = await model.findOne({ quiz: quizId, user: userId });
 

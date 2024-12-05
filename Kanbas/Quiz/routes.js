@@ -13,4 +13,14 @@ export default function QuizRoutes(app) {
         await quizDao.updateQuiz(quizId, quizUpdates);
         res.sendStatus(204);
     });
+    app.post("/api/quizz/:quizzId/publish", async (req, res) => {
+        const { quizzId } = req.params;
+        await quizDao.publishQuiz(quizzId);
+        res.sendStatus(204);
+    });
+    app.post("/api/quizz/:quizzId/unpublish", async (req, res) => {
+        const { quizzId } = req.params;
+        await quizDao.unpublishQuiz(quizzId);
+        res.sendStatus(204);
+    });
 }
