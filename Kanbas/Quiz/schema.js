@@ -10,6 +10,7 @@ const quizzSchema = new mongoose.Schema(
     untilDate: Date,
     numberOfQuestions: Number,
     multipleAttempts: Boolean,
+    allowedAttempts: Number,
     description: String,
     type: String,
     shuffleAnswers: Boolean,

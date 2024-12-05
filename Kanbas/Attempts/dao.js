@@ -1,16 +1,21 @@
 import model from "./model.js";
+import quizModel from "../Quiz/quizModel.js"
 
 export async function startQuizAttempt(quizId, userId) {
   const existingAttempts = await model.findOne({ quiz: quizId, user: userId });
+  const q = await quizModel.findById(quizId);
 
   if (existingAttempts !== null) {
+    // if (!q || !q.multipleAttempts || (q.multipleAttempts && existingAttempts.attempts.length >= q.allowedAttempts)) {
+    //   return existingAttempts;
+    // } // ignore this check for now
     existingAttempts.attempts.push({
       start: Date.now(),
       submitted: false,
       submittedAt: 0,
       score: 0,
       grade: 0,
-      answers: [],
+      answers: q.questions.map((_) => null),
     });
     existingAttempts.save();
     return existingAttempts;
@@ -26,7 +31,7 @@ export async function startQuizAttempt(quizId, userId) {
         submittedAt: 0,
         score: 0,
         grade: 0,
-        answers: [],
+        answers: q?.questions.map((_) => null) || [],
       },
     ],
   });
