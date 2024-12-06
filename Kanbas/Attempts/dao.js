@@ -62,9 +62,13 @@ export async function getAllAttempts(quizId, userId) {
 export async function submitAttempt(quizId, userId) {
   const existingAttempts = await model.findOne({ quiz: quizId, user: userId });
   if (!existingAttempts) {
-    return false;
+    return null;
   }
   const latestAtt = existingAttempts.attempts[existingAttempts.attempts.length - 1];
+
+  if (latestAtt.submitted) {
+    return latestAtt;
+  }
 
   const thisQuiz = (await existingAttempts.populate("quiz")).quiz;
 
@@ -95,7 +99,7 @@ export async function submitAttempt(quizId, userId) {
 
   existingAttempts.save();
 
-  return true;
+  return latestAtt;
 }
 
 // Helper function to compare answers based on question type
@@ -114,7 +118,7 @@ function compareAnswers(questionType, userAnswer, correctAnswer) {
       if (userAnswer.length !== correctAnswer.length) {
         return false;
       }
-      return userAnswer.every((ans, idx) => ans === correctAnswer[idx]);
+      return userAnswer.every((ans, idx) => correctAnswer[idx].map((str) => str.toLowerCase()).includes(ans.toLowerCase())); 
     default:
       return false;
   }

@@ -22,8 +22,12 @@ export default function AttemptRoutes(app) {
   });
   app.post("/api/quizz/:quizId/attempt/:userId/submit", async (req, res) => {
       const { quizId, userId } = req.params;
-      const didSubmitAttempt = await attemptsDao.submitAttempt(quizId, userId);
-      res.sendStatus(didSubmitAttempt ? 200 : 400);
+      const maybeSubmittedAttempt = await attemptsDao.submitAttempt(quizId, userId);
+      if (maybeSubmittedAttempt) {
+        res.send(maybeSubmittedAttempt);
+      } else {
+        res.sendStatus(400);
+      }
   });
   app.get("/api/quizz/:quizId/attempts/:userId", async (req, res) => {
       const { quizId, userId } = req.params;
