@@ -15,8 +15,14 @@ const quizzSchema = new mongoose.Schema(
     type: String,
     shuffleAnswers: Boolean,
     oneQuestionPerPage: Boolean,
-    timeLimit: String,
-    publish:Boolean,
+    timeLimit: Number,
+    publish: Boolean,
+    accessCodeBool: Boolean,
+    accessCode: String,
+    assignmentGroup: String,
+    webcamRequired: Boolean,
+    lockQuestionsAfterAnswering: Boolean,
+    showCorrectAnswers: Boolean
   },
   { collection: "quizzes" }
 );
