@@ -89,7 +89,7 @@ export async function submitAttempt(quizId, userId) {
     }
   });
 
-  const grade = (score / totalPoints) * 100;
+  const grade = totalPoints === 0 ? 0 : (score / totalPoints) * 100;
 
   // Update attempt with score and submission status
   latestAtt.submitted = true;
